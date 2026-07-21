@@ -4,3 +4,8 @@ __pycache__/
 .pytest_cache/
 .promethee_autosave.xlsx
 .promethee_language.txt
+.claude/
+.DS_Store
+PROMETHEE_beta0715.zip
+PROMETHEE_beta0715/
+car_purchase_data.csv
