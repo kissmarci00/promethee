@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(python3 -)",
+      "Bash(.venv/bin/python -m streamlit run dashboard.py --server.headless true --server.port 8501)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8501)",
+      "Bash(pkill -f \"streamlit run dashboard.py\")",
+      "Bash(.venv/bin/python -c \"import playwright\")",
+      "Bash(pip3 show *)",
+      "Bash(.venv/bin/python -m py_compile pages/1_Problem_Setup.py)",
+      "Bash(.venv/bin/python -m py_compile /Users/kissmarcell/Downloads/promethee/dashboard.py /Users/kissmarcell/Downloads/promethee/i18n.py)",
+      "Bash(.venv/bin/python -m py_compile i18n.py dashboard.py pages/1_Problem_Setup.py pages/2_Data_Entry.py pages/3_Results.py pages/4_Step_by_Step.py pages/5_Sensitivity.py pages/6_GAIA.py)",
+      "Bash(.venv/bin/python3 -)",
+      "Bash(kill 18758)",
+      "Bash(nohup .venv/bin/python -m streamlit run dashboard.py --server.headless true)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8501)",
+      "Read(//tmp/**)",
+      "Bash(.venv/bin/python -m py_compile /Users/kissmarcell/Downloads/promethee/promethee_core/table_export.py /Users/kissmarcell/Downloads/promethee/pages/3_Results.py /Users/kissmarcell/Downloads/promethee/i18n.py)"
+    ]
+  }
+}

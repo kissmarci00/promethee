@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.promethee_autosave.xlsx
+.promethee_language.txt
