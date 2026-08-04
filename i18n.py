@@ -336,13 +336,13 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "**{w_low}** és **{w_high}** között van (a többi szempont arányosan átskálázva).",
     },
     "sensitivity.no_reversal_at_0": {
-        "en": "There is no rank reversal at 0.", "hu": "A 0 értéknél nincs rangsorváltás.",
+        "en": "There is no rank reversal at 0.", "hu": "A 0 értéknél nincs rangsorfordulás.",
     },
     "sensitivity.no_reversal_at_1": {
-        "en": "There is no rank reversal at 1.", "hu": "Az 1 értéknél nincs rangsorváltás.",
+        "en": "There is no rank reversal at 1.", "hu": "Az 1 értéknél nincs rangsorfordulás.",
     },
     "sensitivity.crossings_caption": {
-        "en": "Rank crossings considered for this stability level:", "hu": "Az ehhez a stabilitási szinthez figyelembe vett rangsorváltások:"
+        "en": "Rank crossings considered for this stability level:", "hu": "Az ehhez a stabilitási szinthez figyelembe vett rangsorfordulások:"
     },
     "sensitivity.summary_subheader": {
         "en": "Weight stability summary for all criteria", "hu": "Súlystabilitási összefoglaló minden szemponthoz",
