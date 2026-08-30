@@ -1,4 +1,4 @@
-"""Reproduces the car-purchase worked example from PROMETHEE.pdf (pages 5-7)."""
+"""Reproduces the car-purchase worked example used as the reference dataset."""
 import numpy as np
 import pytest
 

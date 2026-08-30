@@ -1,10 +1,8 @@
 """English/Hungarian text for every Streamlit page's UI chrome.
 
-Hungarian terminology follows the reference material for this course
-(PROMETHEE_GUI_specifikáció.docx and PROMETHEE.pdf) — notably "szempont"
-for "criterion" (not "kritérium"), "folyamérték" for "flow" (not
-"áramlás"), and the reference's exact preference-function names (e.g.
-"trapéz alakú" for Linear, "lépcsős" for Level).
+Hungarian terminology: "szempont" for "criterion" (not "kritérium"),
+"folyamérték" for "flow" (not "áramlás"), and standard preference-function
+names (e.g. "trapéz alakú" for Linear, "lépcsős" for Level).
 
 Scope, deliberately: page chrome only — titles, captions, labels, buttons,
 alerts. Two things stay in English regardless of the selected language:
@@ -119,7 +117,7 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     },
     "home.export_problem": {"en": "Export the current problem", "hu": "Jelenlegi probléma exportálása"},
     "home.download_excel": {"en": "Download as Excel (.xlsx)", "hu": "Letöltés Excelként (.xlsx)"},
-    "home.download_csv": {"en": "Download raw data as CSV", "hu": "Nyers adatok letöltése CSV-ként"},
+    "home.download_csv": {"en": "Download as CSV", "hu": "Letöltés CSV-ként"},
 
     # -- pages/1_Problem_Setup.py ------------------------------------------------
     "problem_setup.title": {"en": "Problem Setup", "hu": "Probléma beállítása"},
@@ -480,10 +478,7 @@ def language_switcher() -> None:
         index=codes.index(default_code),
         key="language",
     )
-    # Deliberately unconditional: by the time this line runs, session_state
-    # already reflects *this* rerun's value (Streamlit applies a widget
-    # interaction to session_state before the script body re-executes), so
-    # comparing `selected` against session_state/default_code can never
-    # detect "the user just changed it" — it's always already in sync. A
-    # plain small text-file write is cheap enough to not need that guard.
+    # Unconditional on purpose: session_state is already updated by the time
+    # this runs, so there's no way to detect "just changed" here to guard
+    # against. The write is cheap enough not to bother.
     _save_language(selected)

@@ -1,5 +1,5 @@
-"""The car-purchase example from PROMETHEE.pdf, used as an in-app demo and as
-the reference dataset in tests/test_core.py."""
+"""The car-purchase example, used as an in-app demo and as the reference
+dataset in tests/test_core.py."""
 from __future__ import annotations
 
 import pandas as pd
@@ -44,9 +44,9 @@ def car_purchase_example() -> ProblemData:
     ]
     values = pd.DataFrame(RAW_DATA, index=ALTERNATIVE_NAMES)
     return ProblemData(
-        name="Car purchase (Visual PROMETHEE sample)",
+        name="Car purchase",
         description="Choosing a car among 6 alternatives on price, power, consumption, "
-        "habitability and comfort. From the PROMETHEE reference material.",
+        "habitability and comfort.",
         alternatives=alternatives,
         criteria=criteria,
         values=values,

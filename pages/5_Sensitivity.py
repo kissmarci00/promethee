@@ -42,11 +42,9 @@ st.success(
         top_x=top_x, criterion_name=criterion_name, w_low=f"{w_low:.4f}", w_high=f"{w_high:.4f}",
     )
 )
-# w_low == 0.0 / w_high == 1.0 only ever happen when stability_interval() found
-# no crossing on that side at all (see its low_candidates/high_candidates) —
-# i.e. the ranking is stable all the way to that extreme, not just "up to a
-# boundary that happens to be 0 or 1". Worth calling out explicitly since a
-# bare "between 0.0000 and ..." reads like just another number, not "unlimited".
+# 0.0/1.0 here mean stability_interval() found no crossing on that side at
+# all — stable to the extreme, not just up to a boundary that happens to
+# land on 0 or 1. Call it out explicitly rather than printing a plain number.
 if w_low == 0.0:
     st.caption(t("sensitivity.no_reversal_at_0"))
 if w_high == 1.0:
@@ -104,14 +102,11 @@ for c in active_crits:
     except ValueError:
         continue
     c_w_low, c_w_high, _ = c_sens.stability_interval(top_x)
-    # A side at 0/1 is "no rank reversal" — genuinely unbounded, not "the
-    # weight happens to be this close to the edge of [0, 1]". So it must count
-    # as infinite here, not as w0 - 0 or 1 - w0, or an unbounded side with a
-    # small w0 could wrongly look like the binding (smallest) constraint. Both
-    # sides unbounded means this criterion never flips the top-x ranking at
-    # all — no meaningful "max change" to report (matching the reference
-    # worksheet's "-" for this case), and it should never be picked as the
-    # "most sensitive" criterion.
+    # A side at 0/1 means truly unbounded, not "weight happens to be near the
+    # edge" — treat it as infinite rather than w0 - 0 / 1 - w0, or a small w0
+    # could wrongly look like the binding constraint. Both sides unbounded
+    # means this criterion never flips the ranking, so it has no max change
+    # and should never be picked as most sensitive.
     decrease_amount = float("inf") if c_w_low == 0.0 else c_sens.w0 - c_w_low
     increase_amount = float("inf") if c_w_high == 1.0 else c_w_high - c_sens.w0
     max_change = None if decrease_amount == increase_amount == float("inf") else min(decrease_amount, increase_amount)
@@ -145,11 +140,9 @@ if summary_rows:
 st.divider()
 st.subheader(t("sensitivity.download_subheader"))
 
-# Rendering the PNG spawns a local headless-browser process (via kaleido) — on
-# Windows that briefly flashes a window. Doing this unconditionally on every
-# rerun meant it fired on every single slider drag / selectbox change. So it's
-# gated behind an explicit click instead, and the result is cached until the
-# criterion or stability level actually changes.
+# PNG rendering spawns a headless-browser process (kaleido), which briefly
+# flashes a window on Windows. Gated behind a click instead of running on
+# every rerun, and cached until the criterion or stability level changes.
 png_context = (criterion_name, top_x)
 if st.button(t("sensitivity.generate_png")):
     try:

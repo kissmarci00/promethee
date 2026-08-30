@@ -109,22 +109,20 @@ fig.update_layout(
     margin=dict(l=60, r=40, t=60, b=60),
 )
 
-# This figure is deliberately styled as a fixed light "paper" surface for print/publication,
-# independent of the viewer's OS/browser theme. theme=None stops Streamlit from overlaying its
-# own dark-mode template on top (which otherwise lightens text colors against our light legend
-# background, making legend labels unreadable in dark mode).
+# Fixed light "paper" surface for print/publication, independent of the
+# viewer's theme. theme=None stops Streamlit's dark-mode overlay, which
+# otherwise lightens text against our light legend background and makes it
+# unreadable in dark mode.
 st.plotly_chart(fig, width="stretch", theme=None)
 
 st.divider()
 st.subheader(t("gaia.download_subheader"))
 st.caption(t("gaia.download_caption"))
 
-# Rendering the PNG spawns a local headless-browser process (via kaleido) — on
-# Windows that briefly flashes a window. Doing this unconditionally on every
-# rerun meant it fired on every single interaction anywhere on the app (a
-# color picker, a checkbox — anything that reruns this page). So it's gated
-# behind an explicit click instead, and the export is cached until the plane
-# actually changes.
+# PNG rendering spawns a headless-browser process (kaleido), which briefly
+# flashes a window on Windows. Gated behind a click instead of running on
+# every rerun (any interaction on the page), and cached until the plane
+# changes.
 gaia_context = (
     problem.name,
     tuple(gaia.alternative_names),
