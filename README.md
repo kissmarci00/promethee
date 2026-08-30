@@ -12,6 +12,12 @@ Mac/Windows packages (no Python install needed) on the
 
 ## Installation
 
+You'll need Python 3 already installed for this to work (the packaged
+Mac/Windows releases above don't need this — only this terminal route
+does). Get it from [python.org](https://www.python.org/downloads/) if you
+don't have it yet — during installation on Windows, make sure to check the
+box that says "Add python.exe to PATH".
+
 ### 1. Open a terminal
 
 - **Mac:** press `Cmd + Space`, type `Terminal`, press Enter.
