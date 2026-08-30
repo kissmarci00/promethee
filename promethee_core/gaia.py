@@ -73,9 +73,8 @@ def export_gaia_to_excel(
     alt_colors: dict[str, str],
     crit_colors: dict[str, str],
     weights: dict[str, float],
-    image_png: bytes | None = None,
 ) -> bytes:
-    """Export the GAIA plane's exact coordinates (and optionally its rendered image) to Excel."""
+    """Export the GAIA plane's exact coordinates to Excel."""
     buffer = io.BytesIO()
     with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
         pd.DataFrame(
@@ -105,16 +104,4 @@ def export_gaia_to_excel(
             }
         ).to_excel(writer, sheet_name="Pi vector", index=False)
 
-    if not image_png:
-        return buffer.getvalue()
-
-    from openpyxl import load_workbook
-    from openpyxl.drawing.image import Image as XLImage
-
-    buffer.seek(0)
-    workbook = load_workbook(buffer)
-    sheet = workbook.create_sheet("Plot")
-    sheet.add_image(XLImage(io.BytesIO(image_png)), "A1")
-    out = io.BytesIO()
-    workbook.save(out)
-    return out.getvalue()
+    return buffer.getvalue()

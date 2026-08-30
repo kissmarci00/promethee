@@ -363,17 +363,6 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "hu": "A rangsor a(z) **{criterion_name}** szempont súlyára a legérzékenyebb — ennek súlya csak "
         "**{max_change}**-ot változhat, mielőtt az első {top_x} helyezett rangsora megváltozna.",
     },
-    "sensitivity.download_subheader": {"en": "Download", "hu": "Letöltés"},
-    "sensitivity.generate_png": {"en": "Generate PNG for download", "hu": "PNG előállítása letöltéshez"},
-    "sensitivity.download_png": {"en": "Download plot as PNG", "hu": "Grafikon letöltése PNG-ként"},
-    "sensitivity.stale_png": {
-        "en": "The criterion or stability level changed since this PNG was generated — regenerate to download the current chart.",
-        "hu": "A szempont vagy a stabilitási szint megváltozott a PNG előállítása óta — állítsa elő újra az aktuális grafikon letöltéséhez.",
-    },
-    "sensitivity.no_renderer": {
-        "en": "Could not render the chart image (no local renderer available).",
-        "hu": "Nem sikerült előállítani a grafikon képét (nincs elérhető helyi renderelő).",
-    },
 
     # -- pages/6_GAIA.py -------------------------------------------------------------
     "gaia.title": {"en": "GAIA Plane", "hu": "GAIA sík"},
@@ -398,24 +387,13 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "gaia.download_subheader": {"en": "Download", "hu": "Letöltés"},
     "gaia.download_caption": {
         "en": "The Excel file has one sheet per element (Alternatives, Criteria, Pi vector) with "
-        "their exact PC1/PC2 coordinates and assigned colors, plus a Plot sheet with the "
-        "chart image exactly as shown above.",
+        "their exact PC1/PC2 coordinates and assigned colors. To save the chart image itself, use "
+        "the camera icon in the chart's own toolbar above.",
         "hu": "Az Excel fájl elemenként egy munkalapot tartalmaz (Alternatívák, Szempontok, Pi vektor) "
-        "a pontos PC1/PC2 koordinátákkal és a hozzárendelt színekkel, valamint egy Plot munkalapot "
-        "a fent látható grafikon képével.",
+        "a pontos PC1/PC2 koordinátákkal és a hozzárendelt színekkel. A grafikon képének mentéséhez "
+        "használja a fenti grafikon saját eszköztárában lévő kamera ikont.",
     },
-    "gaia.no_renderer": {
-        "en": "Could not render the chart image for the Excel file (no local renderer available); "
-        "the download will still include all coordinates.",
-        "hu": "Nem sikerült előállítani a grafikon képét az Excel fájlhoz (nincs elérhető helyi renderelő); "
-        "a letöltés így is tartalmazni fogja az összes koordinátát.",
-    },
-    "gaia.prepare_download": {"en": "Prepare download", "hu": "Letöltés előkészítése"},
     "gaia.download_button": {"en": "Download GAIA plane as Excel", "hu": "GAIA sík letöltése Excelként"},
-    "gaia.stale_download": {
-        "en": "The plane changed since this file was prepared — prepare again to download the current version.",
-        "hu": "A sík megváltozott a fájl előkészítése óta — készítse elő újra az aktuális verzió letöltéséhez.",
-    },
 }
 
 # Preference-function enum -> translation key, used to localize

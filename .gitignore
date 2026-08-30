@@ -12,3 +12,6 @@ car_purchase_data.csv
 *.pdf
 *.doc
 *.docx
+
+# Local packaging tooling/build output — not tracked in this repo.
+packaging/

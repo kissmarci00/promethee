@@ -112,46 +112,25 @@ fig.update_layout(
 # Fixed light "paper" surface for print/publication, independent of the
 # viewer's theme. theme=None stops Streamlit's dark-mode overlay, which
 # otherwise lightens text against our light legend background and makes it
-# unreadable in dark mode.
-st.plotly_chart(fig, width="stretch", theme=None)
+# unreadable in dark mode. toImageButtonOptions sizes the chart's own
+# (client-side, no server dependency) PNG export to match.
+st.plotly_chart(
+    fig, width="stretch", theme=None,
+    config={
+        "toImageButtonOptions": {
+            "format": "png", "filename": f"{problem.name or 'gaia'}_gaia_plane",
+            "width": 1200, "height": 900, "scale": 2,
+        }
+    },
+)
 
 st.divider()
 st.subheader(t("gaia.download_subheader"))
 st.caption(t("gaia.download_caption"))
 
-# PNG rendering spawns a headless-browser process (kaleido), which briefly
-# flashes a window on Windows. Gated behind a click instead of running on
-# every rerun (any interaction on the page), and cached until the plane
-# changes.
-gaia_context = (
-    problem.name,
-    tuple(gaia.alternative_names),
-    tuple(gaia.criterion_names),
-    tuple(alt_colors.get(n) for n in gaia.alternative_names),
-    tuple(crit_colors.get(n) for n in gaia.criterion_names),
-    gaia.alternative_coords.tobytes(),
-    gaia.criterion_coords.tobytes(),
-    gaia.pi_vector.tobytes(),
+st.download_button(
+    t("gaia.download_button"),
+    data=export_gaia_to_excel(gaia, alt_colors, crit_colors, weights),
+    file_name=f"{problem.name or 'gaia'}_gaia_plane.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 )
-if st.button(t("gaia.prepare_download")):
-    try:
-        plot_png = fig.to_image(format="png", width=1200, height=900, scale=2)
-    except Exception:
-        plot_png = None
-        st.warning(t("gaia.no_renderer"), icon="⚠️")
-    st.session_state["gaia_export_bytes"] = export_gaia_to_excel(
-        gaia, alt_colors, crit_colors, weights, image_png=plot_png
-    )
-    st.session_state["gaia_export_context"] = gaia_context
-
-cached_export = st.session_state.get("gaia_export_bytes")
-if cached_export is not None:
-    if st.session_state.get("gaia_export_context") != gaia_context:
-        st.caption(t("gaia.stale_download"))
-    else:
-        st.download_button(
-            t("gaia.download_button"),
-            data=cached_export,
-            file_name=f"{problem.name or 'gaia'}_gaia_plane.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        )

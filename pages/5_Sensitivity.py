@@ -83,7 +83,15 @@ fig.update_layout(
     legend=dict(bgcolor=SURFACE, font=dict(color=INK_PRIMARY, family=FONT_FAMILY)),
     margin=dict(l=60, r=40, t=60, b=60),
 )
-st.plotly_chart(fig, width="stretch", theme=None)
+st.plotly_chart(
+    fig, width="stretch", theme=None,
+    config={
+        "toImageButtonOptions": {
+            "format": "png", "filename": f"{problem.name or 'sensitivity'}_{criterion_name}_sensitivity",
+            "width": 1600, "height": 900, "scale": 2,
+        }
+    },
+)
 
 if crossings:
     st.caption(t("sensitivity.crossings_caption"))
@@ -135,31 +143,4 @@ if summary_rows:
                 criterion_name=most_sensitive["name"], max_change=f"{most_sensitive['max_change']:.4f}",
                 top_x=top_x,
             )
-        )
-
-st.divider()
-st.subheader(t("sensitivity.download_subheader"))
-
-# PNG rendering spawns a headless-browser process (kaleido), which briefly
-# flashes a window on Windows. Gated behind a click instead of running on
-# every rerun, and cached until the criterion or stability level changes.
-png_context = (criterion_name, top_x)
-if st.button(t("sensitivity.generate_png")):
-    try:
-        st.session_state["sensitivity_png_bytes"] = fig.to_image(format="png", width=1600, height=900, scale=2)
-        st.session_state["sensitivity_png_context"] = png_context
-    except Exception:
-        st.session_state["sensitivity_png_bytes"] = None
-        st.warning(t("sensitivity.no_renderer"), icon="⚠️")
-
-cached_png = st.session_state.get("sensitivity_png_bytes")
-if cached_png is not None:
-    if st.session_state.get("sensitivity_png_context") != png_context:
-        st.caption(t("sensitivity.stale_png"))
-    else:
-        st.download_button(
-            t("sensitivity.download_png"),
-            data=cached_png,
-            file_name=f"{problem.name or 'sensitivity'}_{criterion_name}_sensitivity.png",
-            mime="image/png",
         )
